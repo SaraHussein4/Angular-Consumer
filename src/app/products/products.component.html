@@ -1,0 +1,165 @@
+<div class="container mt-4">
+  <!-- Search Bar -->
+  <div class="row mb-4">
+    <div class="col-md-6 mx-auto">
+      <div class="input-group">
+        <span class="input-group-text">
+          <i class="bi bi-search"></i>
+        </span>
+        <input 
+          type="text" 
+          class="form-control" 
+          placeholder="Search products..." 
+          [(ngModel)]="searchTerm"
+          (input)="onSearch($event)">
+      </div>
+    </div>
+  </div>
+
+  <!-- Products Grid -->
+  <div class="row">
+    <div class="col-md-4 mb-4" *ngFor="let product of products">
+      <div class="card h-100 shadow-sm product-card">
+        <div class="image-container">
+          <img *ngIf="product.img" [src]="product.img" 
+               [alt]="product.name" 
+               class="card-img-top">
+          <div *ngIf="!product.img" class="no-image">
+            <i class="bi bi-image text-muted"></i>
+            <span class="text-muted d-block mt-2">No image available</span>
+          </div>
+        </div>
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">{{product.name}}</h5>
+          <p class="card-text text-muted mb-2">{{product.productBrand}}</p>
+          <p class="card-text description">{{product.description}}</p>
+          <div class="mt-auto">
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="h5 mb-0 text-primary">${{product.price}}</span>
+              <button class="btn btn-outline-primary" (click)="addToCart(product)">
+                <i class="bi bi-cart-plus"></i> Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pagination -->
+  <div class="row mt-4" *ngIf="totalPages > 1">
+    <div class="col-12">
+      <nav aria-label="Product navigation">
+        <ul class="pagination justify-content-center">
+          <li class="page-item" [class.disabled]="pageIndex === 1">
+            <a class="page-link" (click)="onPageChange(pageIndex - 1)" [class.disabled]="pageIndex === 1">
+              <i class="bi bi-chevron-left"></i>
+            </a>
+          </li>
+          <li class="page-item" *ngFor="let page of pages" [class.active]="page === pageIndex">
+            <a class="page-link" (click)="onPageChange(page)">{{page}}</a>
+          </li>
+          <li class="page-item" [class.disabled]="pageIndex === totalPages">
+            <a class="page-link" (click)="onPageChange(pageIndex + 1)" [class.disabled]="pageIndex === totalPages">
+              <i class="bi bi-chevron-right"></i>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+<style>
+.product-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1) !important;
+}
+
+.image-container {
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: #f8f9fa;
+  padding: 1rem;
+}
+
+.card-img-top {
+  max-height: 100%;
+  width: auto;
+  object-fit: contain;
+}
+
+.no-image {
+  text-align: center;
+}
+
+.no-image i {
+  font-size: 3rem;
+}
+
+.description {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.btn-outline-primary {
+  transition: all 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+  transform: translateY(-2px);
+}
+
+/* Pagination Styles */
+.pagination {
+  margin-bottom: 2rem;
+}
+
+.page-link {
+  cursor: pointer;
+  color: #007bff;
+}
+
+.page-item.active .page-link {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: white;
+}
+
+.page-item.disabled .page-link {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Search Styles */
+.input-group {
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  border-radius: 25px;
+  overflow: hidden;
+}
+
+.input-group-text {
+  background-color: white;
+  border: none;
+  padding-left: 1.5rem;
+}
+
+.input-group .form-control {
+  border: none;
+  padding: 0.75rem 1.5rem;
+}
+
+.input-group .form-control:focus {
+  box-shadow: none;
+}
+</style>

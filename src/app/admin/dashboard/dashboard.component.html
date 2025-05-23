@@ -1,0 +1,172 @@
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar -->
+    <nav class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+      <div class="position-sticky pt-3">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" href="#">
+              <i class="bi bi-speedometer2"></i>
+              Dashboard
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i class="bi bi-box"></i>
+              Products
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i class="bi bi-cart"></i>
+              Orders
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i class="bi bi-people"></i>
+              Users
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Dashboard</h1>
+      </div>
+
+      <!-- Error Message -->
+      <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+        {{ errorMessage }}
+      </div>
+
+      <!-- Stats Cards -->
+      <div class="row">
+        <div class="col-xl-3 col-md-6 mb-4">
+          <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+              <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                  <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Orders</div>
+                  <div class="h5 mb-0 font-weight-bold text-gray-800">{{ stats.totalOrders }}</div>
+                </div>
+                <div class="col-auto">
+                  <i class="bi bi-cart text-gray-300 h1"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+          <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+              <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                  <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Revenue</div>
+                  <div class="h5 mb-0 font-weight-bold text-gray-800">${{ stats.revenue }}</div>
+                </div>
+                <div class="col-auto">
+                  <i class="bi bi-currency-dollar text-gray-300 h1"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+          <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+              <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                  <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Products</div>
+                  <div class="h5 mb-0 font-weight-bold text-gray-800">{{ stats.totalProducts }}</div>
+                </div>
+                <div class="col-auto">
+                  <i class="bi bi-box text-gray-300 h1"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+          <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+              <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                  <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Users</div>
+                  <div class="h5 mb-0 font-weight-bold text-gray-800">{{ stats.totalUsers }}</div>
+                </div>
+                <div class="col-auto">
+                  <i class="bi bi-people text-gray-300 h1"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<style>
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  padding: 48px 0 0;
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+}
+
+.sidebar .nav-link {
+  font-weight: 500;
+  color: #333;
+}
+
+.sidebar .nav-link.active {
+  color: #007bff;
+}
+
+.sidebar .nav-link:hover {
+  color: #007bff;
+}
+
+.sidebar .nav-link i {
+  margin-right: 4px;
+  color: #999;
+}
+
+.sidebar .nav-link.active i {
+  color: #007bff;
+}
+
+.border-left-primary {
+  border-left: .25rem solid #4e73df!important;
+}
+
+.border-left-success {
+  border-left: .25rem solid #1cc88a!important;
+}
+
+.border-left-info {
+  border-left: .25rem solid #36b9cc!important;
+}
+
+.border-left-warning {
+  border-left: .25rem solid #f6c23e!important;
+}
+
+.text-gray-300 {
+  color: #dddfeb!important;
+}
+
+.text-gray-800 {
+  color: #5a5c69!important;
+}
+</style> 

@@ -1,0 +1,131 @@
+<style>
+    .bg-gradient-primary {
+  background: linear-gradient(90deg, #007bff, #6610f2);
+}
+
+.navbar-nav .nav-link {
+  font-weight: 600;
+}
+
+.dropdown-menu {
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgb(0 0 0 / 0.15);
+}
+
+.cart-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  padding: 4px 8px;
+  border-radius: 50%;
+  background-color: #dc3545;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+.cart-icon {
+  position: relative;
+  display: inline-block;
+  margin-right: 1rem;
+}
+
+.btn-link {
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.btn-link:hover {
+  color: white;
+}
+
+.dropdown-menu {
+  margin-top: 0.5rem;
+  border: none;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.dropdown-item {
+  padding: 0.5rem 1rem;
+}
+
+.dropdown-item i {
+  margin-right: 0.5rem;
+}
+
+.navbar-nav .nav-item.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.navbar-nav .nav-link {
+  padding: 0.5rem 1rem;
+}
+
+.nav-link i {
+  margin-right: 0.5rem;
+}
+
+.navbar-nav .nav-item {
+  display: flex;
+  align-items: center;
+}
+
+.text-danger:hover {
+  color: #dc3545 !important;
+  opacity: 0.8;
+}
+</style>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/">E-Commerce</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/products" routerLinkActive="active">Products</a>
+        </li>
+        <li class="nav-item" *ngIf="isAdmin()">
+          <a class="nav-link" routerLink="/admin" routerLinkActive="active">
+            <i class="bi bi-speedometer2"></i> Admin Dashboard
+          </a>
+        </li>
+      </ul>
+      
+      <ul class="navbar-nav">
+        <!-- Cart Icon -->
+        <li class="nav-item" *ngIf="isLoggedIn()">
+          <a class="nav-link position-relative" routerLink="/cart">
+            <i class="bi bi-cart3"></i>
+            <span *ngIf="cartItemCount > 0"
+                  class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+              {{ cartItemCount }}
+            </span>
+          </a>
+        </li>
+
+        <!-- User Links -->
+        <li class="nav-item" *ngIf="isLoggedIn()">
+          <a class="nav-link" routerLink="/orders">
+            <i class="bi bi-box-seam"></i> Orders
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="isLoggedIn()">
+          <a class="nav-link text-danger" href="#" (click)="logout(); $event.preventDefault()">
+            <i class="bi bi-box-arrow-right"></i> Logout
+          </a>
+        </li>
+
+        <!-- Login/Register Links -->
+        <li class="nav-item" *ngIf="!isLoggedIn()">
+          <a class="nav-link" routerLink="/login">Login</a>
+        </li>
+        <li class="nav-item" *ngIf="!isLoggedIn()">
+          <a class="nav-link" routerLink="/account/register">Register</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

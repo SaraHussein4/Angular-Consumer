@@ -1,0 +1,129 @@
+<div class="container mt-4">
+  <!-- Loading Spinner -->
+  <div *ngIf="isLoading" class="text-center p-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p>Loading product data...</p>
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="loadError" class="alert alert-danger">
+    {{ loadError }}
+    <button (click)="loadInitialData()" class="btn btn-sm btn-outline-danger ms-2">
+      Retry
+    </button>
+  </div>
+
+  <!-- Main Content -->
+  <div *ngIf="!isLoading && !loadError">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2>Products Management</h2>
+      <button class="btn btn-primary" (click)="showAddProductForm()">
+        <i class="bi bi-plus-circle"></i> Add New Product
+      </button>
+    </div>
+
+    <!-- Add/Edit Product Form -->
+    <div class="card mb-4" *ngIf="showForm">
+      <div class="card-body">
+        <h3>{{ editingProduct ? 'Edit' : 'Add' }} Product</h3>
+        <form (ngSubmit)="saveProduct()" #productForm="ngForm">
+          <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" [(ngModel)]="currentProduct.name" name="name" required>
+          </div>
+          <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" id="description" [(ngModel)]="currentProduct.description" name="description" required></textarea>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="mb-3">
+                <label for="price" class="form-label">Price</label>
+                <input type="number" class="form-control" id="price" [(ngModel)]="currentProduct.price" name="price" required min="0" step="0.01">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="mb-3">
+                <label for="brand" class="form-label">Brand</label>
+                <select class="form-select" id="brand" [(ngModel)]="currentProduct.productBrandId" name="productBrandId" required>
+                  <option [ngValue]="null">Select Brand</option>
+                  <option *ngFor="let brand of brands" [ngValue]="brand.id">{{brand.name}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="mb-3">
+                <label for="type" class="form-label">Type</label>
+                <select class="form-select" id="type" [(ngModel)]="currentProduct.productTypeId" name="productTypeId" required>
+                  <option [ngValue]="null">Select Type</option>
+                  <option *ngFor="let type of types" [ngValue]="type.id">{{type.name}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="quantity" class="form-label">Quantity</label>
+            <input type="number" class="form-control" id="quantity" [(ngModel)]="currentProduct.quantity" name="quantity" required min="0">
+          </div>
+          <div class="mb-3">
+            <label for="pictureFile" class="form-label">Product Image</label>
+            <input type="file" class="form-control" id="pictureFile" (change)="onFileSelected($event)" accept="image/*">
+            <div *ngIf="currentProduct.img" class="mt-2">
+              <img [src]="'http://localhost:5229/images/products/' + currentProduct.img" alt="Product preview" style="max-width: 200px; max-height: 200px;">
+            </div>
+          </div>
+          <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary" [disabled]="productForm.invalid">Save</button>
+            <button type="button" class="btn btn-secondary" (click)="cancelEdit()">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Products Table -->
+    <div class="table-responsive" *ngIf="products.length > 0">
+      <table class="table table-hover">
+        <thead class="table-light">
+          <tr>
+            <th scope="col" style="width: 100px">Image</th>
+            <th scope="col">Product Details</th>
+            <th scope="col" style="width: 120px">Price</th>
+            <th scope="col" style="width: 100px">Quantity</th>
+            <th scope="col" style="width: 150px">Actions</th>
+          </tr>
+        </thead>
+       <tbody>
+          <tr *ngFor="let product of products">
+            <td>
+              <img [src]="product.img" alt="{{product.name}}" width="50" height="50" 
+                   class="img-thumbnail" *ngIf="product.img">
+              <div *ngIf="!product.img" class="text-muted">No image</div>
+            </td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.description | truncate:30 }}</td>
+            <td>{{ product.price | currency }}</td>
+            <td>{{ getBrandName(product.productBrandId) }}</td>
+            <td>{{ getTypeName(product.productTypeId) }}</td>
+            <td>{{ product.quantity }}</td>
+            <td>
+              <button class="btn btn-sm btn-warning me-2" (click)="editProduct(product)">
+                Edit
+              </button>
+              <button class="btn btn-sm btn-danger" (click)="deleteProduct(product.id)">
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- No Products Message -->
+    <div *ngIf="!products.length" class="alert alert-info">
+      <i class="bi bi-info-circle me-2"></i>
+      No products found. Click "Add New Product" to create one.
+    </div>
+  </div>
+</div> 

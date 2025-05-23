@@ -1,0 +1,69 @@
+<style>
+    .login-card {
+  background: #f8f9fa;
+  border: none;
+  transition: transform 0.3s ease;
+}
+
+.login-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 123, 255, 0.3);
+}
+
+</style>
+<div class="container mt-5 d-flex justify-content-center">
+  <div class="card shadow p-4 login-card" style="width: 360px; border-radius: 15px;">
+    <h2 class="text-center mb-4 text-primary fw-bold">Login</h2>
+    <form (ngSubmit)="onSubmit()" #loginForm="ngForm" novalidate>
+
+      <div class="mb-3">
+        <label for="email" class="form-label fw-semibold">Email address</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          class="form-control"
+          required
+          email
+          [(ngModel)]="loginModel.email"
+          #email="ngModel"
+          [ngClass]="{'is-invalid': email.invalid && email.touched}"
+        />
+        <div *ngIf="email.invalid && email.touched" class="invalid-feedback">
+          Please enter a valid email.
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label for="password" class="form-label fw-semibold">Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          class="form-control"
+          required
+          minlength="6"
+          [(ngModel)]="loginModel.password"
+          #password="ngModel"
+          [ngClass]="{'is-invalid': password.invalid && password.touched}"
+        />
+        <div *ngIf="password.invalid && password.touched" class="invalid-feedback">
+          Password is required and must be at least 6 characters.
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100 fw-bold" [disabled]="loginForm.invalid">Login</button>
+
+      <!-- Error Message -->
+      <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+        {{ errorMessage }}
+      </div>
+
+      <!-- Debug Info (only in development) -->
+      <div *ngIf="false" class="mt-3 p-3 bg-light">
+        <p>Current Role: {{ getCurrentRole() }}</p>
+        <p>Token Present: {{ hasToken() }}</p>
+      </div>
+    </form>
+  </div>
+</div>

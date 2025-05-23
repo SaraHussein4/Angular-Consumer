@@ -1,0 +1,15 @@
+.badge {
+  font-size: 0.9em;
+}
+
+.table img {
+  object-fit: cover;
+}
+
+.card {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.table-responsive {
+  margin-bottom: 0;
+} 
