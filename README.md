@@ -1,59 +1,134 @@
-# Ecommerce
+# E-Commerce Angular Application
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.3.
+A modern, full-featured e-commerce application built with Angular and .NET Core backend. This application provides a complete shopping experience with both customer and admin interfaces.
 
-## Development server
+## Features
 
-To start a local development server, run:
+### Customer Features
+- **Product Browsing**
+  - View all products with pagination
+  - Search products by name
+  - Filter products by category and brand
+  - Responsive product cards with images and details
 
-```bash
-ng serve
+- **Shopping Cart**
+  - Add/remove products
+  - Update quantities
+  - Persistent cart (localStorage + server sync)
+  - Real-time total calculation
+
+- **User Authentication**
+  - User registration
+  - Login/Logout functionality
+  - JWT-based authentication
+  - Protected routes
+
+- **Order Management**
+  - Checkout process
+  - Multiple delivery methods
+  - Order history
+  - Order status tracking
+
+### Admin Features
+- **Dashboard**
+  - Overview statistics
+  - Total orders
+  - Revenue tracking
+  - Product count
+  - User statistics
+
+- **Product Management**
+  - Add/Edit/Delete products
+  - Manage product categories
+  - Manage product brands
+  - Image upload functionality
+
+## Technical Stack
+
+### Frontend
+- Angular 16+
+- TypeScript
+- Bootstrap 5
+- RxJS
+- Angular Router
+- HttpClient
+
+### Backend (API)
+- .NET Core
+- Entity Framework Core
+- SQL Server
+- JWT Authentication
+- RESTful API
+- 
+### Admin Access
+To access the admin dashboard:
+- Email: Admin1@gmail.com
+- Password: Admin@123
+- Navigate to: `/admin/dashboard`
+
+## Project Structure
+
+```
+Ecommerce/
+├── src/
+│   ├── app/
+│   │   ├── admin/           # Admin components
+│   │   ├── cart/            # Cart functionality
+│   │   ├── products/        # Product listing
+│   │   ├── services/        # Shared services
+│   │   ├── models/          # Interfaces/Types
+│   │   └── guards/          # Route guards
+│   ├── assets/             # Static files
+│   └── environments/       # Environment configs
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Key Features Implementation
 
-## Code scaffolding
+### Authentication
+- JWT-based authentication
+- Role-based authorization
+- Secure route guards
+- Persistent login state
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### Shopping Cart
+- Real-time updates
+- Server synchronization
+- Local storage persistence
+- Quantity management
 
-```bash
-ng generate component component-name
-```
+### Admin Dashboard
+- Secure admin routes
+- Statistics overview
+- Product management
+- Order management
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## API Integration
 
-```bash
-ng generate --help
-```
+The frontend communicates with a .NET Core backend API:
+- Base URL: `http://localhost:5229/api`
+- Protected routes using JWT
+- RESTful endpoints for all features
 
-## Building
+## Styling
 
-To build the project run:
+- Bootstrap 5 for responsive design
+- Custom SCSS for enhanced styling
+- Bootstrap Icons
+- Responsive layout for all screen sizes
 
-```bash
-ng build
-```
+## Security Features
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+- JWT token authentication
+- Protected API routes
+- Secure admin access
+- Input validation
+- Error handling
 
-## Running unit tests
+## Future Enhancements
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- Payment gateway integration
+- Advanced product filtering
+- User profile management
+- Order tracking system
+- Advanced analytics for admin
+- Product reviews and ratings
